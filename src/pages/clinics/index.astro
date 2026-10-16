@@ -14,7 +14,7 @@ const rows = d.clinics.flatMap(c => c.prices.map(p => ({...p, cid:c.id, cname:c.
 </div>
 <table><thead><tr><th>クリニック</th><th>地域</th><th>治療法</th><th>メニュー</th><th>料金</th><th>単位</th><th>税</th><th>保険</th><th>出典</th></tr></thead>
 <tbody id="tb">{rows.map(r=><tr data-pref={r.pref} data-t={r.t} data-price={r.price} data-name={r.cname}>
-<td><a href={`/clinics/${r.cid}/`}>{r.cname}</a></td><td>{r.pref}</td><td>{T[r.t]}</td><td>{r.label}{r.note && <div class="note">{r.note}</div>}</td>
+<td><a href={`${import.meta.env.BASE_URL}/clinics/${r.cid}/`}>{r.cname}</a></td><td>{r.pref}</td><td>{T[r.t]}</td><td>{r.label}{r.note && <div class="note">{r.note}</div>}</td>
 <td>{r.approx?'約':''}{yen(r.price)}</td><td>{r.unit}</td><td>{tax(r.tax_included)}</td><td>{r.insurance?'適用':'自費'}</td><td><a href={r.url} rel="nofollow noopener" target="_blank">公式</a></td></tr>)}</tbody></table>
 <p class="note">掲載件数 {rows.length}件 / {d.clinics.length}院。不明な項目は掲載していません。誤りのご指摘は運営者ページの連絡先へ。</p>
 <script>
