@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import d from '../../data/clinics.json';
+import { T, yen, tax } from '../../data/meta.js';
+const rows = d.clinics.flatMap(c => c.prices.map(p => ({...p, cid:c.id, cname:c.name, pref:c.prefectures.join('・'), url:c.url})));
+---
+<Base title="クリニック料金データベース">
+<h1>ワキガ・多汗症治療 クリニック料金データベース</h1>
+<p class="note">各クリニック公式サイトの掲載料金を転記（確認日 {d.checked_at}）。順位・推奨ではありません。施術内容・照射範囲・含まれる費用はクリニックごとに異なるため、金額だけで単純比較できない点にご注意ください。</p>
+<div class="card">
+<label>都道府県 <select id="pref"><option value="">すべて</option><option>東京</option><option>大阪</option></select></label>
+<label>治療法 <select id="tr"><option value="">すべて</option>{Object.entries(T).map(([k,v])=><option value={k}>{v}</option>)}</select></label>
+<label>並び順 <select id="sort"><option value="price">料金が低い順</option><option value="price_desc">料金が高い順</option><option value="name">クリニック名順</option></select></label>
+</div>
+<table><thead><tr><th>クリニック</th><th>地域</th><th>治療法</th><th>メニュー</th><th>料金</th><th>単位</th><th>税</th><th>保険</th><th>出典</th></tr></thead>
+<tbody id="tb">{rows.map(r=><tr data-pref={r.pref} data-t={r.t} data-price={r.price} data-name={r.cname}>
+<td><a href={`/clinics/${r.cid}/`}>{r.cname}</a></td><td>{r.pref}</td><td>{T[r.t]}</td><td>{r.label}{r.note && <div class="note">{r.note}</div>}</td>
+<td>{r.approx?'約':''}{yen(r.price)}</td><td>{r.unit}</td><td>{tax(r.tax_included)}</td><td>{r.insurance?'適用':'自費'}</td><td><a href={r.url} rel="nofollow noopener" target="_blank">公式</a></td></tr>)}</tbody></table>
+<p class="note">掲載件数 {rows.length}件 / {d.clinics.length}院。不明な項目は掲載していません。誤りのご指摘は運営者ページの連絡先へ。</p>
+<script>
+const $=id=>document.getElementById(id);const tb=$('tb');const rs=[...tb.rows];
+function f(){const p=$('pref').value,t=$('tr').value,s=$('sort').value;
+rs.sort((a,b)=>s==='name'?a.dataset.name.localeCompare(b.dataset.name,'ja'):(s==='price'?1:-1)*(a.dataset.price-b.dataset.price));
+rs.forEach(r=>{r.style.display=(!p||r.dataset.pref.includes(p))&&(!t||r.dataset.t===t)?'':'none';tb.appendChild(r)})}
+['pref','tr','sort'].forEach(i=>$(i).onchange=f);f();
+</script>
+</Base>

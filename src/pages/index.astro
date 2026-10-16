@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import d from '../data/clinics.json';
+---
+<Base title="ワキガ治療の費用を、出典付きで比べる">
+<h1>ワキガ治療の費用を、出典と確認日付きで比べる</h1>
+<p>東京・大阪の{d.clinics.length}院について、公式サイトに掲載された料金を<b>出典URL・確認日・税込/税抜・片側/両側・保険適用の有無</b>とともに整理しています。おすすめ順位は付けていません。</p>
+<div class="grid">
+<a class="card" href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}><b>クリニック料金データベース</b><br>都道府県・治療法で絞り込み、料金順に並べ替え</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/check/`.replace("//","/")}><b>体臭タイプ傾向チェック</b><br>ブラウザ内だけで完結。データは保存しません</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/guide/`.replace("//","/")}><b>治療法ガイド</b><br>剪除法・ミラドライ・ボトックス・塩化アルミニウム</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/insurance/`.replace("//","/")}><b>保険適用ガイド</b><br>保険が使える治療と自己負担の目安</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/products/`.replace("//","/")}><b>市販品の選び方</b><br>医薬部外品と化粧品の違い</a>
+</div>
+<p class="note">料金確認日：{d.checked_at}</p>
+</Base>

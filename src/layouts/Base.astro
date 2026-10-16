@@ -1,0 +1,25 @@
+---
+const { title } = Astro.props;
+---
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{title} | ワキガ費用ナビ</title>
+<style is:global>
+body{font-family:system-ui,"Hiragino Sans","Noto Sans JP",sans-serif;margin:0;color:#222;line-height:1.7;background:#fafafa}
+header{background:#2b5f75;color:#fff;padding:.6rem 1rem}header a{color:#fff;margin-right:1rem;text-decoration:none;font-size:.9rem}
+.logo{font-weight:bold;font-size:1.2rem;margin-right:1.5rem}
+.pr{background:#fff3cd;border-bottom:1px solid #e0c97f;padding:.3rem 1rem;font-size:.8rem}
+main{max-width:960px;margin:auto;padding:1rem}
+table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid #ccc;padding:.4rem;font-size:.9rem;text-align:left}
+th{background:#eef3f5}.card{background:#fff;border:1px solid #ddd;border-radius:8px;padding:1rem;margin:.8rem 0}
+.btn{display:inline-block;background:#2b5f75;color:#fff;padding:.5rem 1rem;border-radius:6px;text-decoration:none;border:0;cursor:pointer}
+.note{font-size:.8rem;color:#555}footer{background:#eee;padding:1rem;font-size:.8rem;margin-top:2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+</style></head><body>
+<div class="pr">【PR】当サイトはアフィリエイト広告を利用する場合があります。掲載順は料金・名称などの客観的な基準のみで、広告の有無によって変わりません。</div>
+<header><a class="logo" href={`${import.meta.env.BASE_URL}/`.replace("//","/")}>ワキガ費用ナビ</a>
+<a href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}>料金データベース</a><a href={`${import.meta.env.BASE_URL}/check/`.replace("//","/")}>傾向チェック</a><a href={`${import.meta.env.BASE_URL}/guide/`.replace("//","/")}>治療法ガイド</a><a href={`${import.meta.env.BASE_URL}/insurance/`.replace("//","/")}>保険適用</a><a href={`${import.meta.env.BASE_URL}/products/`.replace("//","/")}>市販品</a><a href={`${import.meta.env.BASE_URL}/policy/`.replace("//","/")}>運営方針</a></header>
+<main><slot /></main>
+<footer>
+<div class="card"><b>料金更新のお知らせメール(準備中)</b><br><a href={`${import.meta.env.BASE_URL}/newsletter/`.replace("//","/")}>登録について</a></div>
+本サイトは情報提供を目的としており、診断・治療の代わりにはなりません。症状については医師にご相談ください。料金は各クリニック公式サイトの掲載値を転記したもので、最新の料金・条件は必ず各公式サイトでご確認ください。<br>
+<a href={`${import.meta.env.BASE_URL}/policy/`.replace("//","/")}>編集方針・広告表記・運営者情報</a></footer></body></html>
