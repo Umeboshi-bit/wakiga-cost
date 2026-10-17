@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import d from '../data/clinics.json';
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+const types = ['senjo_ins','senjo','miradry','botox'];
+const prefs = ['all','東京','大阪'];
+function stats(arr){ if(!arr.length) return null; const s=[...arr].sort((a,b)=>a-b); const n=s.length; const med = n%2? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; return {min:s[0],med:Math.round(med),max:s[n-1],n}; }
+const S = {};
+for (const p of prefs){ S[p]={}; for (const t of types){ const vals=[]; for(const c of d.clinics){ if(p!=='all' && !c.prefectures.includes(p)) continue; for(const x of c.prices){ if(x.t!==t) continue; vals.push(x.unit==='片側' ? x.price*2 : x.price); } } S[p][t]=stats(vals); } }
+const alum = d.clinics.some(c=>c.prices.some(x=>x.t==='alcl'||x.t==='aluminum'));
+---
+<Base title="治療ごとの5年総額シミュレーター">
+<h1>治療ごとの5年総額シミュレーター</h1>
+<p>選んだ治療を5年間続けた場合の費用の目安を、<a href={`${B}/clinics/`}>料金データベース</a>に掲載している各院の公式掲載料金(確認日：{d.checked_at})の<b>最小・中央値・最大</b>から計算します。計算はブラウザ内だけで行い、入力内容は保存・送信しません。順位付けや特定の治療のおすすめはしていません。</p>
+<div class="card">
+<label>都道府県：<select id="pref"><option value="all">東京・大阪すべて</option><option value="東京">東京</option><option value="大阪">大阪</option></select></label>
+<div style="margin-top:.6rem">
+<label><input type="checkbox" class="tx" value="senjo_ins"> 保険の剪除法(1回)</label><br>
+<label><input type="checkbox" class="tx" value="senjo"> 自費手術(1回)</label><br>
+<label><input type="checkbox" class="tx" value="miradry"> ミラドライ(1回)</label><br>
+<label><input type="checkbox" class="tx" value="botox"> ボトックス：年 <input type="number" id="bn" min="1" max="6" value="2" style="width:3em"> 回 × 5年</label><br>
+<label><input type="checkbox" class="tx" value="alcl"> 塩化アルミニウム外用</label>
+</div></div>
+<div id="out"></div>
+<h2>ダウンタイム・主なリスク(すべての治療に共通の比重で掲載)</h2>
+<table><tr><th>治療</th><th>ダウンタイムの目安</th><th>主なリスク・注意点</th></tr>
+<tr><td>剪除法(保険・自費)</td><td>術後の固定・安静が必要で、日常生活への影響は数週間程度続くことがある</td><td>傷あと、血腫、皮膚の壊死、色素沈着、取り残しによる再発の可能性</td></tr>
+<tr><td>ミラドライ</td><td>腫れ・痛み・しびれが数日〜数週間程度出ることがある</td><td>腫れ、しこり、感覚の変化。1回で十分でなく追加照射となる場合がある</td></tr>
+<tr><td>ボトックス</td><td>ほぼなし(注射部位の内出血など)</td><td>効果は一時的で、継続には繰り返しの施術が必要。代償性発汗などの可能性</td></tr>
+<tr><td>塩化アルミニウム</td><td>なし</td><td>かぶれ・かゆみなどの皮膚刺激。効果は使用中に限られる</td></tr></table>
+<p class="note">詳しくは<a href={`${B}/guide/`}>治療法ガイド</a>・<a href={`${B}/insurance/`}>保険適用ガイド</a>をご覧ください。効果・ダウンタイム・リスクには個人差があります。治療の選択は必ず医師にご相談ください。</p>
+<h2>計算の前提</h2>
+<ul class="note">
+<li>金額は当サイトのデータベース掲載値のみを使用し、推計値は加えていません。データ件数(n)が少ない項目は幅が大きく変わり得ます。</li>
+<li>各院で税込/税抜、麻酔代・初診料・薬代の有無、単位数、照射方法などの条件が異なります。「片側」表記の保険料金は両脇分として2倍、「不明」表記はそのまま集計しています。</li>
+<li>手術・ミラドライは1回分のみで計算しています。再手術・追加照射の費用は含みません。</li>
+<li>保険診療の金額は各院掲載の3割負担の目安です。</li>
+<li>最新の料金・条件は必ず各クリニック公式サイトでご確認ください。</li></ul>
+<script define:vars={{S, alum, B}}>
+const yen=v=>Math.round(v).toLocaleString('ja-JP')+'円';
+const names={senjo_ins:'保険の剪除法',senjo:'自費手術',miradry:'ミラドライ',botox:'ボトックス'};
+function calc(){
+  const p=document.getElementById('pref').value; const n=Math.max(1,Math.min(6,parseInt(document.getElementById('bn').value)||1));
+  const sel=[...document.querySelectorAll('.tx:checked')].map(e=>e.value);
+  if(!sel.length){document.getElementById('out').innerHTML='<p class="note">治療を選ぶと5年総額の目安を表示します。</p>';return;}
+  let rows='',tot={min:0,med:0,max:0},ok=true,notes='';
+  for(const t of sel){
+    if(t==='alcl'){notes+='<p class="note">塩化アルミニウム：当サイトのデータベースには価格データがないため、金額は計算していません(<a href="'+B+'/products/">市販品の選び方</a>・医療機関の処方は各医療機関へ)。</p>';continue;}
+    const s=S[p][t]; if(!s){rows+='<tr><td>'+names[t]+'</td><td colspan="4">この地域のデータなし</td></tr>';ok=false;continue;}
+    const m=t==='botox'?n*5:1;
+    rows+='<tr><td>'+names[t]+(t==='botox'?'(年'+n+'回×5年='+m+'回)':'(1回)')+'</td><td>'+yen(s.min*m)+'</td><td>'+yen(s.med*m)+'</td><td>'+yen(s.max*m)+'</td><td>'+s.n+'件</td></tr>';
+    tot.min+=s.min*m;tot.med+=s.med*m;tot.max+=s.max*m;
+  }
+  let h='';
+  if(rows){h='<table id="result"><tr><th>治療</th><th>最小</th><th>中央値</th><th>最大</th><th>データ件数</th></tr>'+rows+'<tr><th>合計(5年)</th><th>'+yen(tot.min)+'</th><th>'+yen(tot.med)+'</th><th>'+yen(tot.max)+'</th><th></th></tr></table>';}
+  h+=notes+'<p class="note">各院で料金の条件が異なります。出典は<a href="'+B+'/clinics/">料金データベース</a>で院ごとに確認できます。費用・効果には個人差があり、実際の費用はカウンセリングで確認してください。</p>';
+  document.getElementById('out').innerHTML=h;
+}
+document.querySelectorAll('select,input').forEach(e=>e.addEventListener('input',calc));calc();
+</script>
+</Base>
