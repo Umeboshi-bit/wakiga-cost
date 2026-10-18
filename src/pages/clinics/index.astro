@@ -2,26 +2,40 @@
 import Base from '../../layouts/Base.astro';
 import d from '../../data/clinics.json';
 import { T, yen, tax } from '../../data/meta.js';
-const rows = d.clinics.flatMap(c => c.prices.map(p => ({...p, cid:c.id, cname:c.name, pref:c.prefectures.join('・'), url:c.url})));
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+const rows = d.clinics.flatMap(c => c.prices.map(p => ({...p, cid:c.id, cname:c.name, pref:c.prefectures.join('・'), url:c.url, checked:c.checked_at || d.checked_at})));
+const order = ['東京','大阪','京都','兵庫','滋賀'];
+const prefs = [...new Set(d.clinics.flatMap(c=>c.prefectures))].sort((a,b)=>order.indexOf(a)-order.indexOf(b));
+const kansai = ['大阪','京都','兵庫','滋賀'];
+const camps = rows.filter(r=>r.campaign);
 ---
 <Base title="クリニック料金データベース">
 <h1>ワキガ・多汗症治療 クリニック料金データベース</h1>
-<p class="note">各クリニック公式サイトの掲載料金を転記（確認日 {d.checked_at}）。順位・推奨ではありません。施術内容・照射範囲・含まれる費用はクリニックごとに異なるため、金額だけで単純比較できない点にご注意ください。</p>
+<p class="note">各クリニック公式サイトの掲載料金を転記（確認日は各行・各院ページに記載。基本確認日 {d.checked_at}）。順位・推奨ではありません。施術内容・照射範囲・含まれる費用はクリニックごとに異なるため、金額だけで単純比較できない点にご注意ください。</p>
 <div class="card">
-<label>都道府県 <select id="pref"><option value="">すべて</option><option>東京</option><option>大阪</option></select></label>
-<label>治療法 <select id="tr"><option value="">すべて</option>{Object.entries(T).map(([k,v])=><option value={k}>{v}</option>)}</select></label>
+<label>地域 <select id="pref"><option value="">すべて</option><option value="関西">関西（大阪・京都・兵庫・滋賀）</option>{prefs.map(p=><option value={p}>{p}</option>)}</select></label>
+<label>術式・治療法 <select id="tr"><option value="">すべて</option>{Object.entries(T).map(([k,v])=><option value={k}>{v}</option>)}</select></label>
+<label>保険適用 <select id="ins"><option value="">すべて</option><option value="1">保険適用あり</option><option value="0">自費のみ</option></select></label>
+<label><input type="checkbox" id="cp"> 期間限定価格の掲載があるもののみ</label>
 <label>並び順 <select id="sort"><option value="price">料金が低い順</option><option value="price_desc">料金が高い順</option><option value="name">クリニック名順</option></select></label>
 </div>
-<table><thead><tr><th>クリニック</th><th>地域</th><th>治療法</th><th>メニュー</th><th>料金</th><th>単位</th><th>税</th><th>保険</th><th>出典</th></tr></thead>
-<tbody id="tb">{rows.map(r=><tr data-pref={r.pref} data-t={r.t} data-price={r.price} data-name={r.cname}>
-<td><a href={`${import.meta.env.BASE_URL}/clinics/${r.cid}/`.replace("//","/")}>{r.cname}</a></td><td>{r.pref}</td><td>{T[r.t]}</td><td>{r.label}{r.note && <div class="note">{r.note}</div>}</td>
-<td>{r.approx?'約':''}{yen(r.price)}</td><td>{r.unit}</td><td>{tax(r.tax_included)}</td><td>{r.insurance?'適用':'自費'}</td><td><a href={r.url} rel="nofollow noopener" target="_blank">公式</a></td></tr>)}</tbody></table>
-<p class="note">掲載件数 {rows.length}件 / {d.clinics.length}院。不明な項目は掲載していません。誤りのご指摘は運営者ページの連絡先へ。</p>
+<table><thead><tr><th>クリニック</th><th>地域</th><th>術式・治療法</th><th>メニュー</th><th>料金</th><th>単位</th><th>税</th><th>保険</th><th>期間限定価格</th><th>出典・確認日</th></tr></thead>
+<tbody id="tb">{rows.map(r=><tr data-pref={r.pref} data-t={r.t} data-price={r.price} data-name={r.cname} data-ins={r.insurance?'1':'0'} data-cp={r.campaign?'1':'0'}>
+<td><a href={`${B}/clinics/${r.cid}/`}>{r.cname}</a></td><td>{r.pref}</td><td>{T[r.t]}</td><td>{r.label}{r.note && <div class="note">{r.note}</div>}</td>
+<td>{r.approx?'約':''}{yen(r.price)}</td><td>{r.unit}</td><td>{tax(r.tax_included)}</td><td>{r.insurance?'適用':'自費'}</td>
+<td>{r.campaign ? <span>{r.campaign.label}<br><b>{yen(r.campaign.price)}</b>（{tax(r.campaign.tax_included)}）<div class="note">期間：{r.campaign.period}／確認日 {r.campaign.checked_at}／<a href={r.campaign.url} rel="nofollow noopener" target="_blank">出典</a></div></span> : '—'}</td>
+<td><a href={r.url} rel="nofollow noopener" target="_blank">公式</a><div class="note">{r.checked}</div></td></tr>)}</tbody></table>
+<p class="note">掲載件数 {rows.length}件 / {d.clinics.length}院（うち関西 {d.clinics.filter(c=>c.prefectures.some(p=>kansai.includes(p))).length}院）。不明な項目は掲載していません。単位が「片側」の金額は片ワキあたりです。誤りのご指摘は運営者ページの連絡先へ。</p>
+<div class="card"><b>期間限定価格について</b><br><span class="note">公式ページで「期間限定」等の表示を確認できた価格のみ、確認日と出典を付けて別欄に掲載しています（現在 {camps.length}件）。モニター価格など条件付きの価格はメニュー欄の注記に記載しています。キャンペーンは予告なく終了・変更されることがあるため、必ず公式サイトで最新の条件をご確認ください。並べ替えは通常価格で行っています。</span></div>
+<p><a href={`${B}/senjo-recovery/`}>剪除法の術後スケジュール（一般的な目安）を見る →</a></p>
 <script>
 const $=id=>document.getElementById(id);const tb=$('tb');const rs=[...tb.rows];
-function f(){const p=$('pref').value,t=$('tr').value,s=$('sort').value;
+const KANSAI=['大阪','京都','兵庫','滋賀'];
+function f(){const p=$('pref').value,t=$('tr').value,s=$('sort').value,ins=$('ins').value,cp=$('cp').checked;
 rs.sort((a,b)=>s==='name'?a.dataset.name.localeCompare(b.dataset.name,'ja'):(s==='price'?1:-1)*(a.dataset.price-b.dataset.price));
-rs.forEach(r=>{r.style.display=(!p||r.dataset.pref.includes(p))&&(!t||r.dataset.t===t)?'':'none';tb.appendChild(r)})}
-['pref','tr','sort'].forEach(i=>$(i).onchange=f);f();
+rs.forEach(r=>{const pr=r.dataset.pref;const okP=!p||(p==='関西'?KANSAI.some(k=>pr.includes(k)):pr.includes(p));
+r.style.display=okP&&(!t||r.dataset.t===t)&&(!ins||r.dataset.ins===ins)&&(!cp||r.dataset.cp==='1')?'':'none';tb.appendChild(r)})}
+['pref','tr','sort','ins','cp'].forEach(i=>$(i).onchange=f);
+const q=new URLSearchParams(location.search);if(q.get('pref'))$('pref').value=q.get('pref');f();
 </script>
 </Base>

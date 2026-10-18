@@ -4,12 +4,14 @@ import d from '../data/clinics.json';
 ---
 <Base title="ワキガ治療の費用を、出典付きで比べる">
 <h1>ワキガ治療の費用を、出典と確認日付きで比べる</h1>
-<p>東京・大阪の{d.clinics.length}院について、公式サイトに掲載された料金を<b>出典URL・確認日・税込/税抜・片側/両側・保険適用の有無</b>とともに整理しています。おすすめ順位は付けていません。</p>
+<p>東京・関西（大阪・京都・兵庫・滋賀）の{d.clinics.length}院について、公式サイトに掲載された料金を<b>出典URL・確認日・税込/税抜・片側/両側・保険適用の有無</b>とともに整理しています。おすすめ順位は付けていません。</p>
 <div class="grid">
 <a class="card" href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}><b>クリニック料金データベース</b><br>都道府県・治療法で絞り込み、料金順に並べ替え</a>
 <a class="card" href={`${import.meta.env.BASE_URL}/simulator/`.replace("//","/")}><b>治療ごとの5年総額シミュレーター</b><br>掲載料金の最小・中央値・最大から5年分の費用目安を計算</a>
 <a class="card" href={`${import.meta.env.BASE_URL}/check/`.replace("//","/")}><b>体臭タイプ傾向チェック</b><br>ブラウザ内だけで完結。データは保存しません</a>
 <a class="card" href={`${import.meta.env.BASE_URL}/guide/`.replace("//","/")}><b>治療法ガイド</b><br>剪除法・ミラドライ・ボトックス・塩化アルミニウム</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/senjo-recovery/`.replace("//","/")}><b>剪除法の術後スケジュール</b><br>仕事・家事・運動・入浴の一般的な目安（医療機関の出典付き）</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/clinics/?pref=関西`.replace("//","/")}><b>関西のクリニック料金</b><br>大阪・京都・神戸ほか。保険適用・術式・期間限定価格で絞り込み</a>
 <a class="card" href={`${import.meta.env.BASE_URL}/insurance/`.replace("//","/")}><b>保険適用ガイド</b><br>保険が使える治療と自己負担の目安</a>
 <a class="card" href={`${import.meta.env.BASE_URL}/products/`.replace("//","/")}><b>市販品の選び方</b><br>医薬部外品と化粧品の違い</a>
 </div>

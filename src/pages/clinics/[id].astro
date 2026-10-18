@@ -4,12 +4,16 @@ import d from '../../data/clinics.json';
 import { T, yen, tax } from '../../data/meta.js';
 export function getStaticPaths(){return d.clinics.map(c=>({params:{id:c.id},props:{c}}))}
 const { c } = Astro.props;
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+const checked = c.checked_at || d.checked_at;
 ---
 <Base title={`${c.name}のワキガ・多汗症治療料金`}>
 <h1>{c.name}</h1>
 <p>地域：{c.prefectures.join('・')}{c.branch_note && `（${c.branch_note}）`}</p>
-<table><tr><th>治療法</th><th>メニュー</th><th>料金</th><th>単位</th><th>税</th><th>保険</th></tr>
-{c.prices.map(p=><tr><td>{T[p.t]}</td><td>{p.label}{p.note&&<div class="note">{p.note}</div>}</td><td>{p.approx?'約':''}{yen(p.price)}</td><td>{p.unit}</td><td>{tax(p.tax_included)}</td><td>{p.insurance?'適用':'自費'}</td></tr>)}</table>
-<p class="note">出典：<a href={c.url} rel="nofollow noopener" target="_blank">{c.url}</a>／確認日：{d.checked_at}。料金は変更されることがあります。最新情報・リスク・副作用は必ず公式サイトと診察でご確認ください。</p>
-<p><a href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}>← データベースに戻る</a></p>
+<table><tr><th>術式・治療法</th><th>メニュー</th><th>料金</th><th>単位</th><th>税</th><th>保険</th><th>期間限定価格</th></tr>
+{c.prices.map(p=><tr><td>{T[p.t]}</td><td>{p.label}{p.note&&<div class="note">{p.note}</div>}</td><td>{p.approx?'約':''}{yen(p.price)}</td><td>{p.unit}</td><td>{tax(p.tax_included)}</td><td>{p.insurance?'適用':'自費'}</td>
+<td>{p.campaign ? <span>{p.campaign.label}：{yen(p.campaign.price)}（{tax(p.campaign.tax_included)}）<div class="note">期間：{p.campaign.period}／確認日 {p.campaign.checked_at}／<a href={p.campaign.url} rel="nofollow noopener" target="_blank">出典</a></div></span> : '—'}</td></tr>)}</table>
+<p class="note">出典：<a href={c.url} rel="nofollow noopener" target="_blank">{c.url}</a>／確認日：{checked}。料金は変更されることがあります。期間限定価格は予告なく終了することがあります。最新情報・リスク・副作用は必ず公式サイトと診察でご確認ください。</p>
+{c.prices.some(p=>p.t.startsWith('senjo')) && <p><a href={`${B}/senjo-recovery/`}>剪除法の術後スケジュール（一般的な目安）</a></p>}
+<p><a href={`${B}/clinics/`}>← データベースに戻る</a></p>
 </Base>

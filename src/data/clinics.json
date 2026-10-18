@@ -1,6 +1,6 @@
 {
  "checked_at": "2026-10-16",
- "note": "全価格は各クリニック公式サイトの料金ページ本文を直接取得(2026-10-16)して確認した掲載値。tax_included=null は税込/税抜の明記を確認できなかったもの。保険診療の金額は各院掲載の目安。",
+ "note": "全価格は各クリニック公式サイトの料金ページ本文を直接取得(2026-10-16)して確認した掲載値。tax_included=null は税込/税抜の明記を確認できなかったもの。保険診療の金額は各院掲載の目安。 2026-10-19追加分(関西)は各院の checked_at を参照。期間限定キャンペーン価格は公式ページで期間表示を確認できたもののみ campaign 欄に掲載。",
  "clinics": [
   {
    "id": "tkc110",
@@ -760,6 +760,253 @@
      "insurance": true,
      "approx": true,
      "note": "片脇約22,000円"
+    }
+   ]
+  },
+  {
+   "id": "matsutani-kyoto",
+   "name": "京都駅前 まつたに乳腺・形成外科クリニック",
+   "prefectures": [
+    "京都"
+   ],
+   "url": "https://www.kyoto-breast.com/service/keisei/underarms/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "従来の剪除法・保険3割負担",
+     "price": 21000,
+     "approx": true,
+     "unit": "片側",
+     "insurance": true,
+     "tax_included": null
+    },
+    {
+     "t": "botox",
+     "label": "ボトックス注射(自費)",
+     "price": 44000,
+     "unit": "両脇",
+     "insurance": false,
+     "tax_included": true,
+     "note": "1回あたり"
+    }
+   ]
+  },
+  {
+   "id": "kawai-kyoto",
+   "name": "河合皮膚科",
+   "prefectures": [
+    "京都"
+   ],
+   "branch_note": "京都市下京区",
+   "url": "https://kawai-clinic.net/shinryou/wakiga/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "反転法・保険3割負担",
+     "price": 23100,
+     "approx": true,
+     "unit": "片側",
+     "insurance": true,
+     "tax_included": true
+    },
+    {
+     "t": "miradry",
+     "label": "ミラドライ 両ワキ",
+     "price": 165000,
+     "unit": "両脇",
+     "insurance": false,
+     "tax_included": true
+    },
+    {
+     "t": "botox",
+     "label": "ボトックス 50単位(自費)",
+     "price": 22000,
+     "unit": "両脇",
+     "insurance": false,
+     "tax_included": true
+    },
+    {
+     "t": "botox",
+     "label": "ボトックス 100単位・保険3割負担",
+     "price": 25300,
+     "approx": true,
+     "unit": "両脇",
+     "insurance": true,
+     "tax_included": true,
+     "note": "保険適用は医師の診断による"
+    }
+   ]
+  },
+  {
+   "id": "kousei-kobe",
+   "name": "神成美容外科",
+   "prefectures": [
+    "兵庫"
+   ],
+   "branch_note": "神戸三宮",
+   "url": "https://viewhot-kousei.com/fee/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 両ワキ",
+     "price": 330000,
+     "unit": "両脇",
+     "insurance": false,
+     "tax_included": true,
+     "note": "2回目165,000円。診察代・薬代込みと記載"
+    },
+    {
+     "t": "senjo",
+     "label": "反転剪除法(わきが切開法)",
+     "price": 330000,
+     "unit": "不明",
+     "insurance": false,
+     "tax_included": true
+    }
+   ]
+  },
+  {
+   "id": "clinique-kobe",
+   "name": "クリニーク神戸三宮",
+   "prefectures": [
+    "兵庫"
+   ],
+   "url": "https://clinique-kobe-sannomiya.com/menu/wakiga/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 両脇(通常価格)",
+     "price": 195800,
+     "unit": "両脇",
+     "insurance": false,
+     "tax_included": true,
+     "note": "別途チップ代33,000円・麻酔代11,000円。モニター価格85,800円の記載あり(条件は公式で確認)"
+    }
+   ]
+  },
+  {
+   "id": "tor-kobe",
+   "name": "神戸トアロード形成美容クリニック",
+   "prefectures": [
+    "兵庫"
+   ],
+   "url": "https://tor-cl.jp/keiseigeka/wakiga/hoken",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "剪除法・保険3割負担",
+     "price": 23190,
+     "approx": true,
+     "unit": "片側",
+     "insurance": true,
+     "tax_included": null
+    }
+   ]
+  },
+  {
+   "id": "seishin-n",
+   "name": "西神Nクリニック",
+   "prefectures": [
+    "兵庫"
+   ],
+   "branch_note": "神戸市西区",
+   "url": "https://seishin-n-clinic.com/menulist/miradry",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 両わき1回(通常価格)",
+     "price": 272800,
+     "unit": "両脇",
+     "insurance": false,
+     "tax_included": true,
+     "note": "チップ代・麻酔代・薬代込みと記載。2回目162,800円。モニター限定価格181,500円の記載あり(写真撮影などの条件あり)"
+    }
+   ]
+  },
+  {
+   "id": "ls-osaka",
+   "name": "LSクリニック 大阪梅田",
+   "prefectures": [
+    "大阪"
+   ],
+   "url": "https://lsclinic.jp/plastic/%e3%82%8f%e3%81%8d%e3%81%8c%e3%83%bb%e8%85%8b%e8%87%ad%e7%97%87/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "腋臭症手術(皮弁法)・保険3割負担",
+     "price": 30000,
+     "approx": true,
+     "unit": "片側",
+     "insurance": true,
+     "tax_included": null,
+     "note": "別途診察料・検査代・薬剤費用など"
+    }
+   ]
+  },
+  {
+   "id": "lula-osaka",
+   "name": "ルラ美容クリニック 大阪本院",
+   "prefectures": [
+    "大阪"
+   ],
+   "branch_note": "ミラドライは渋谷・大阪・名古屋・札幌・仙台・福岡の各院のみ",
+   "url": "https://www.lula-beauty.jp/miradry/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 最大照射プラン(通常)",
+     "price": 217800,
+     "unit": "両脇",
+     "insurance": false,
+     "tax_included": true,
+     "note": "局所麻酔代別途25,000円＋税",
+     "campaign": {
+      "label": "＜期間限定＞キャンペーン定価",
+      "price": 121000,
+      "tax_included": true,
+      "period": "終了日の記載なし",
+      "checked_at": "2026-10-19",
+      "url": "https://www.lula-beauty.jp/miradry/"
+     }
+    }
+   ]
+  },
+  {
+   "id": "onishi",
+   "name": "大西皮フ科形成外科医院 滋賀大津石山院",
+   "prefectures": [
+    "滋賀"
+   ],
+   "branch_note": "料金表に「※滋賀大津石山院のみ」と記載",
+   "url": "https://www.onishiskinclinic.com/menu_list/wakiga/senjo/index.html",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "剪除法・保険3割負担",
+     "price": 45000,
+     "approx": true,
+     "unit": "両脇",
+     "insurance": true,
+     "tax_included": null,
+     "note": "片ワキ約24,000円。固定用ボレロ19,800円(税込)"
     }
    ]
   }
