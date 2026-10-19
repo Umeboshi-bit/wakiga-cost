@@ -15,9 +15,9 @@ const qs=[
 <div id="r" class="card" style="display:none"></div>
 <script>
 const BASE=import.meta.env.BASE_URL.replace(/\/$/,'');
-const L={a:['ワキのにおい（腋臭）に関する情報','/guide/'],e:['汗の量（多汗）に関する情報','/insurance/'],k:['加齢にともなうにおいの情報（生活習慣・ケア用品）','/products/'],f:['足のにおいの情報（ケア用品）','/products/'],l:['生活習慣とにおいの関係','/guide/']};
+const L={a:['ワキのにおい（腋臭）に関する情報','/guide/'],e:['汗の量（多汗）に関する情報','/insurance/'],h:['手汗向けの市販ケア用品（広告・PRを含むページ）','/products/#frenara'],k:['加齢にともなうにおいの情報（生活習慣・ケア用品）','/products/'],f:['足のにおいの情報（ケア用品）','/products/'],l:['生活習慣とにおいの関係','/guide/']};
 document.getElementById('f').onsubmit=e=>{e.preventDefault();const c={};document.querySelectorAll('input[name=q]:checked').forEach(i=>c[i.value]=(c[i.value]||0)+1);
-const ks=Object.keys(c).sort((a,b)=>c[b]-c[a]);const r=document.getElementById('r');r.style.display='block';
+if(c.e&&document.querySelectorAll('input[name=q][value=e]')[1].checked)c.h=1;const ks=Object.keys(c).sort((a,b)=>c[b]-c[a]);const r=document.getElementById('r');r.style.display='block';
 r.innerHTML='<h2>参考になりそうな情報</h2>'+(ks.length?'<ul>'+ks.map(k=>`<li><a href="${BASE}${L[k][1]}">${L[k][0]}</a>（該当${c[k]}項目）</li>`).join('')+'</ul>':'<p>該当項目はありませんでした。</p>')+
 '<p><b>においや汗が気になる場合は、自己判断せず皮膚科または形成外科・美容外科で医師の診察を受けてください。</b>原因の判断や治療の必要性、保険適用の可否は医師が診察で判断します。</p><p class="note">この結果は診断ではなく、回答内容は保存されていません。</p>';};
 </script>
