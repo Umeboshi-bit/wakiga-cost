@@ -1,0 +1,6 @@
+---
+const { faq } = Astro.props;
+---
+<h2 id="faq">よくある質問</h2>
+{faq.map(([q,a]) => <div class="card"><b>Q. {q}</b><p style="margin:.4rem 0 0">A. {a}</p></div>)}
+<p class="note">一般的な情報です。治療の適否・保険適用の可否は医師の診察で判断されます。</p>

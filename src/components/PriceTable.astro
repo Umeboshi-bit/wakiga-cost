@@ -4,6 +4,6 @@ const { rows, showMethod = true } = Astro.props;
 const B = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <table><tr><th>クリニック</th>{showMethod && <th>治療法</th>}<th>メニュー（公式表記）</th><th>料金</th><th>単位</th><th>税</th><th>出典・確認日</th></tr>
-{rows.map(({c,p,checked})=><tr><td><a href={`${B}/clinics/${c.id}/`}>{c.name}</a><div class="note">{c.prefectures.join('・')}</div></td>{showMethod && <td>{T[p.t]}</td>}<td>{p.label}{p.note&&<div class="note">{p.note}</div>}{p.campaign&&<div class="note">期間限定：{p.campaign.label} {yen(p.campaign.price)}（{p.campaign.period}）</div>}</td><td>{p.approx?'約':''}{yen(p.price)}</td><td>{p.unit}</td><td>{tax(p.tax_included)}</td><td class="note"><a href={c.url} rel="nofollow noopener" target="_blank">公式</a> {checked}</td></tr>)}
+{rows.map(({c,p,checked})=><tr><td><a href={`${B}/clinics/${c.id}/`}>{c.name}</a><div class="note">{c.prefectures.join('・')}</div></td>{showMethod && <td>{T[p.t]}</td>}<td>{p.label}{p.note&&<div class="note">{p.note}</div>}{p.campaign&&<div class="note">期間限定：{p.campaign.label} {yen(p.campaign.price)}（{p.campaign.period}）</div>}</td><td>{p.approx?'約':''}{yen(p.price)}</td><td>{p.unit}</td><td>{tax(p.tax_included)}</td><td class="note"><a href={p.src || c.url} rel="nofollow noopener" target="_blank">公式</a> {checked}</td></tr>)}
 </table>
 <p class="note">並び順は掲載料金の低い順（同額は名称順）で、おすすめ順・順位ではありません。税込/税抜・片側/両脇の表記が院によって異なるため、単純な比較はできません。料金は変わることがあるため、必ず各公式サイトで最新の料金と条件をご確認ください。</p>

@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import { rows, stats, bothSides, AREAS, d } from '../data/util.js';
+import { yen } from '../data/meta.js';
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+const st = t => stats(rows(() => true, [t]).map(x => bothSides(x.p)).filter(v => v != null));
+const S = { senjo_ins: st('senjo_ins'), senjo: st('senjo'), miradry: st('miradry'), botox: st('botox') };
+const cols = [
+  { k:'senjo_ins', name:'剪除法（保険適用）', link:`${B}/insurance/`, ins:'医師が腋臭症として治療が必要と判断した場合に保険適用', times:'通常1回（保険では片側ずつ手術する院もある）', down:'数日間の圧迫固定、7日前後で抜糸、2〜3週間程度は腕を大きく使う動作を控える目安', risk:'傷あと、血腫、感染、皮膚の壊死、色素沈着、つっぱり感など', y5: s => s.med },
+  { k:'senjo', name:'自費の手術', link:`${B}/price/senjo/`, ins:'自費（術式・院により内容が異なる）', times:'通常1回', down:'術式により異なる。切開を伴う場合は圧迫固定・安静期間がある', risk:'術式により異なる（各院の説明を確認）', y5: s => s.med },
+  { k:'miradry', name:'ミラドライ', link:`${B}/price/miradry/`, ins:'自費', times:'1回のことが多いが、追加照射となる場合がある', down:'腫れ・痛み・内出血が1〜数週間続くことがある', risk:'腫れ、痛み、熱傷、しびれ・感覚異常、色素沈着、代償性発汗、一時的な腕・指の筋力低下、効果が不十分なこと', y5: s => s.med },
+  { k:'botox', name:'ボトックス注射', link:`${B}/price/botox/`, ins:'重度の原発性腋窩多汗症と診断された場合は保険適用あり。においの目的では自費が一般的', times:'効果は一時的（数か月程度）。続ける場合は繰り返し', down:'ほぼなし', risk:'内出血、注射部位の痛み、効果に個人差', y5: s => s.med * 10 },
+];
+const FAQ = [
+  ['ミラドライと手術とボトックス、どれが良いですか？', '本サイトでは治療法の優劣はつけていません。症状（においが主か、汗の量が主か）や体質によって適した治療は異なり、医師の診察で判断されます。費用・通院回数・休める日数・保険の可否などを並べて、医師に相談する際の材料にしてください。'],
+  ['費用を抑えたい場合、どう比べればよいですか？', `1回あたりの掲載値では保険適用の剪除法（両脇換算の中央値${yen(S.senjo_ins.med)}）が低い傾向ですが、保険が使えるかは診察で決まります。ボトックスは1回の費用が比較的低くても繰り返すと総額が増えるため、期間を決めて比べることが大切です（5年総額シミュレーター参照）。`],
+  ['ダウンタイムはどのくらい違いますか？', '一般的な目安として、剪除法は圧迫固定と抜糸があり2〜3週間程度は腕の動作に制限があるとされます。ミラドライは腫れ・痛みが1〜数週間続くことがあり、ボトックスはほぼありません。個人差があり、各院の説明を確認してください。'],
+  ['ミラドライは保険が使えますか？', 'ミラドライは自費（自由診療）です。'],
+];
+---
+<Base title="ミラドライ・剪除法（手術）・ボトックスの費用比較｜掲載値と回復の目安" description={`ワキガ・多汗症の主な治療（保険の剪除法・自費手術・ミラドライ・ボトックス）を、${d.clinics.length}院の公式掲載料金の中央値・範囲、保険の扱い、回数、ダウンタイムの目安で並べました。優劣はつけていません。`} crumbs={[['治療法の費用比較','']]} faq={FAQ}>
+<h1>ミラドライ・剪除法（手術）・ボトックスの費用比較</h1>
+<p>主な治療法を、<b>掲載料金・保険の扱い・回数・ダウンタイムの目安・主なリスク</b>の同じ項目で並べています。治療法の優劣や順位はつけていません。どの治療が適しているかは症状によって異なり、医師の診察で判断されます。</p>
+<div style="overflow-x:auto"><table>
+<tr><th></th>{cols.map(c => <th><a href={c.link}>{c.name}</a></th>)}</tr>
+<tr><td><b>掲載料金（両脇換算）</b></td>{cols.map(c => <td>{S[c.k] ? <>中央値 <b>{yen(S[c.k].med)}</b><div class="note">範囲 {yen(S[c.k].min)}〜{yen(S[c.k].max)}／{S[c.k].n}件</div></> : '—'}</td>)}</tr>
+<tr><td><b>5年間の費用の目安</b></td>{cols.map(c => <td>{S[c.k] ? yen(c.y5(S[c.k])) : '—'}<div class="note">{c.k==='botox' ? '年2回×5年で計算した場合（中央値×10）' : '1回で済んだ場合（中央値）'}</div></td>)}</tr>
+<tr><td><b>保険</b></td>{cols.map(c => <td>{c.ins}</td>)}</tr>
+<tr><td><b>回数</b></td>{cols.map(c => <td>{c.times}</td>)}</tr>
+<tr><td><b>ダウンタイムの目安</b></td>{cols.map(c => <td>{c.down}</td>)}</tr>
+<tr><td><b>主なリスク・副作用</b></td>{cols.map(c => <td>{c.risk}</td>)}</tr>
+</table></div>
+<p class="note">料金は各院の公式サイト掲載値（確認日：{d.checked_at}、追加分は各院の確認日）から算出した単純な目安です。片側表記は2倍、単位不明は除外。税込/税抜が混在し、初診料・麻酔代・薬代などが別途かかる場合があります。追加照射・再手術が必要になった場合の費用は含みません。ダウンタイム・リスクは一般的な情報で、剪除法の回復の詳細と出典は<a href={`${B}/senjo-recovery/`}>術後スケジュール</a>、治療ごとのしくみは<a href={`${B}/guide/`}>治療法ガイド</a>をご覧ください。多汗症の治療法については日本皮膚科学会の<a href="https://qa.dermatol.or.jp/qa32/q07.html" rel="noopener" target="_blank">皮膚科Q&A</a>も参考になります。</p>
+<h2>比べるときのポイント</h2>
+<ul><li><b>保険が使えるか</b>：剪除法は条件を満たせば保険適用。可否は診察で決まります。</li>
+<li><b>期間で総額を見る</b>：繰り返す治療は回数で総額が変わります。<a href={`${B}/simulator/`}>5年総額シミュレーター</a>で地域別に計算できます。</li>
+<li><b>休める日数</b>：仕事・家事・運動への影響の目安は<a href={`${B}/senjo-recovery/`}>術後スケジュール</a>を参照。</li>
+<li><b>料金に含まれるもの</b>：麻酔代・薬代・検診代・照射方法（1パス/2パス）などの条件は各一覧の注記で確認できます。</li></ul>
+<Faq faq={FAQ} />
+<h2>地域別の料金一覧</h2>
+<p>{Object.entries(AREAS).map(([k,a]) => <a class="btn" style="margin:.2rem" href={`${B}/area/${k}/`}>{a.name}</a>)}</p>
+</Base>

@@ -5,6 +5,9 @@ export const AREAS = {
   tokyo: { name: '東京', match: c => c.prefectures.includes('東京') },
   kyoto: { name: '京都', match: c => c.prefectures.includes('京都') },
   hyogo: { name: '兵庫・神戸', match: c => c.prefectures.includes('兵庫') },
+  nagoya: { name: '名古屋・愛知', match: c => c.prefectures.includes('愛知') },
+  fukuoka: { name: '福岡', match: c => c.prefectures.includes('福岡') },
+  yokohama: { name: '横浜・神奈川', match: c => c.prefectures.includes('神奈川') },
   kansai: { name: '関西（大阪・京都・兵庫・滋賀）', match: c => c.prefectures.some(p => KANSAI.includes(p)) },
 };
 export const METHODS = {
@@ -31,4 +34,5 @@ export function stats(vals) {
 }
 // 比較用に「両脇」に揃えた値（片側表記は×2の単純計算、単位不明は除外）
 export function bothSides(p) { return p.unit === '両脇' ? p.price : p.unit === '片側' ? p.price * 2 : null; }
+export const PREF_AREA = { '大阪':'osaka','東京':'tokyo','京都':'kyoto','兵庫':'hyogo','愛知':'nagoya','福岡':'fukuoka','神奈川':'yokohama' };
 export { d };

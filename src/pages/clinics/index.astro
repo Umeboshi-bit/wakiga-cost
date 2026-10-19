@@ -4,12 +4,12 @@ import d from '../../data/clinics.json';
 import { T, yen, tax } from '../../data/meta.js';
 const B = import.meta.env.BASE_URL.replace(/\/$/, '');
 const rows = d.clinics.flatMap(c => c.prices.map(p => ({...p, cid:c.id, cname:c.name, pref:c.prefectures.join('・'), url:c.url, checked:c.checked_at || d.checked_at})));
-const order = ['東京','大阪','京都','兵庫','滋賀'];
+const order = ['東京','神奈川','愛知','大阪','京都','兵庫','滋賀','福岡'];
 const prefs = [...new Set(d.clinics.flatMap(c=>c.prefectures))].sort((a,b)=>order.indexOf(a)-order.indexOf(b));
 const kansai = ['大阪','京都','兵庫','滋賀'];
 const camps = rows.filter(r=>r.campaign);
 ---
-<Base title="ワキガ・多汗症クリニック料金データベース" description="東京・関西のワキガ・多汗症治療クリニックの料金を、都道府県・治療法・保険適用・期間限定価格で絞り込み、料金順に並べ替えできます。出典URLと確認日つき。">
+<Base title="ワキガ・多汗症クリニック料金データベース" description="東京・横浜・名古屋・関西・福岡のワキガ・多汗症治療クリニックの料金を、都道府県・治療法・保険適用・期間限定価格で絞り込み、料金順に並べ替えできます。出典URLと確認日つき。">
 <h1>ワキガ・多汗症治療 クリニック料金データベース</h1>
 <p class="note">各クリニック公式サイトの掲載料金を転記（確認日は各行・各院ページに記載。基本確認日 {d.checked_at}）。順位・推奨ではありません。施術内容・照射範囲・含まれる費用はクリニックごとに異なるため、金額だけで単純比較できない点にご注意ください。</p>
 <div class="card">

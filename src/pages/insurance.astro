@@ -9,7 +9,7 @@ const s = stats(ins.map(x => bothSides(x.p)).filter(v => v != null));
 ---
 <Base title="ワキガ手術の保険適用はいくら？自己負担の掲載値と条件" description={`保険適用のワキガ手術（剪除法・3割負担）の自己負担を、${ins.length}院の公式掲載値から一覧に。両脇換算の中央値は${yen(s.med)}（範囲${yen(s.min)}〜${yen(s.max)}）。保険が使える条件・使えない治療も解説。`} crumbs={[['保険適用ガイド','']]}>
 <h1>ワキガ・多汗症の保険適用ガイド：保険の剪除法はいくら？</h1>
-<div class="card"><b>保険適用の剪除法（3割負担）の掲載値</b>：{ins.length}院・両脇換算の中央値 <b>{yen(s.med)}</b>（範囲 {yen(s.min)}〜{yen(s.max)}）<div class="note">片側表記は2倍した単純計算。各院が公式サイトに掲載している目安額で、初診料・検査料・薬代などが別途かかる場合があります。確認日：{d.checked_at}（関西の追加分は各院の確認日）。</div><a href="#ins-list">一覧を見る</a></div>
+<div class="card"><b>保険適用の剪除法（3割負担）の掲載値</b>：{ins.length}院・両脇換算の中央値 <b>{yen(s.med)}</b>（範囲 {yen(s.min)}〜{yen(s.max)}）<div class="note">片側表記は2倍した単純計算。各院が公式サイトに掲載している目安額で、初診料・検査料・薬代などが別途かかる場合があります。確認日：{d.checked_at}（追加分は各行の確認日）。</div><a href="#ins-list">一覧を見る</a></div>
 <table><tr><th>治療</th><th>保険の扱い</th></tr>
 <tr><td>剪除法（皮弁法）</td><td>医師が腋臭症として治療が必要と判断した場合に保険適用。3割負担で両脇おおむね4〜5万円前後を掲載するクリニックが多い（<a href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}>実際の掲載値</a>）。初診料・血液検査・薬代などが別途かかる場合あり。</td></tr>
 <tr><td>ボツリヌス製剤注射</td><td>重度の原発性腋窩多汗症と診断された場合に保険適用。においの治療目的では自費が一般的。</td></tr>

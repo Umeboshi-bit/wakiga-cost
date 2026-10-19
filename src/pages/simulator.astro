@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import d from '../data/clinics.json';
 const B = import.meta.env.BASE_URL.replace(/\/$/, '');
 const types = ['senjo_ins','senjo','miradry','botox'];
-const prefs = ['all','東京','大阪','京都','兵庫','滋賀','関西'];
+const prefs = ['all','東京','神奈川','愛知','大阪','京都','兵庫','滋賀','福岡','関西'];
 function stats(arr){ if(!arr.length) return null; const s=[...arr].sort((a,b)=>a-b); const n=s.length; const med = n%2? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; return {min:s[0],med:Math.round(med),max:s[n-1],n}; }
 const S = {};
 for (const p of prefs){ S[p]={}; for (const t of types){ const vals=[]; for(const c of d.clinics){ if(p==='関西' ? !c.prefectures.some(x=>['大阪','京都','兵庫','滋賀'].includes(x)) : (p!=='all' && !c.prefectures.includes(p))) continue; for(const x of c.prices){ if(x.t!==t) continue; vals.push(x.unit==='片側' ? x.price*2 : x.price); } } S[p][t]=stats(vals); } }
@@ -13,7 +13,7 @@ const alum = d.clinics.some(c=>c.prices.some(x=>x.t==='alcl'||x.t==='aluminum'))
 <h1>治療ごとの5年総額シミュレーター</h1>
 <p>選んだ治療を5年間続けた場合の費用の目安を、<a href={`${B}/clinics/`}>料金データベース</a>に掲載している各院の公式掲載料金(確認日：{d.checked_at})の<b>最小・中央値・最大</b>から計算します。計算はブラウザ内だけで行い、入力内容は保存・送信しません。順位付けや特定の治療のおすすめはしていません。</p>
 <div class="card">
-<label>都道府県：<select id="pref"><option value="all">全地域</option><option value="東京">東京</option><option value="関西">関西（大阪・京都・兵庫・滋賀）</option><option value="大阪">大阪</option><option value="京都">京都</option><option value="兵庫">兵庫</option><option value="滋賀">滋賀</option></select></label>
+<label>都道府県：<select id="pref"><option value="all">全地域</option><option value="東京">東京</option><option value="神奈川">神奈川</option><option value="愛知">愛知</option><option value="福岡">福岡</option><option value="関西">関西（大阪・京都・兵庫・滋賀）</option><option value="大阪">大阪</option><option value="京都">京都</option><option value="兵庫">兵庫</option><option value="滋賀">滋賀</option></select></label>
 <div style="margin-top:.6rem">
 <label><input type="checkbox" class="tx" value="senjo_ins"> 保険の剪除法(1回)</label><br>
 <label><input type="checkbox" class="tx" value="senjo"> 自費手術(1回)</label><br>

@@ -19,7 +19,7 @@ const desc = `${A.name}に院がある${clinicsN}院のワキガ手術・ミラ�
 <div class="card"><b>治療法ごとの掲載値（両脇換算）</b>
 <table><tr><th>治療法</th><th>件数</th><th>中央値</th><th>範囲</th></tr>
 {sections.map(s => <tr><td><a href={`#${s.r[0].p.t}`}>{s.label}</a></td><td>{s.r.length}</td><td>{s.s ? yen(s.s.med) : '—'}</td><td>{s.s ? `${yen(s.s.min)}〜${yen(s.s.max)}` : '—'}</td></tr>)}</table>
-<p class="note">片側表記は2倍、単位不明は除外した単純計算です。税込/税抜が混在しています。複数の地域に院があるクリニックは、公式サイトの共通料金を掲載しています（院ごとに取扱いや料金が異なる場合があります）。料金確認日：{d.checked_at}（関西の追加分は各院の確認日）。</p></div>
+<p class="note">片側表記は2倍、単位不明は除外した単純計算です。税込/税抜が混在しています。複数の地域に院があるクリニックは、公式サイトの共通料金を掲載しています（院ごとに取扱いや料金が異なる場合があります）。料金確認日：{d.checked_at}（追加分は各行の確認日）。</p></div>
 {sections.map(s => <><h2 id={s.r[0].p.t}>{A.name}：{s.label}（{s.r.length}件）</h2><PriceTable rows={s.r} showMethod={false} /></>)}
 <h2>治療法ごとの全国一覧</h2>
 <ul>{Object.entries(METHODS).map(([k,x]) => <li><a href={`${B}/price/${k}/`}>{x.h1}</a></li>)}</ul>

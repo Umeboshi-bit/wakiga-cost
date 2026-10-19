@@ -707,9 +707,12 @@
    "name": "共立美容外科",
    "prefectures": [
     "東京",
-    "大阪"
+    "大阪",
+    "神奈川",
+    "愛知",
+    "福岡"
    ],
-   "branch_note": "札幌・仙台・宇都宮・大宮・柏院は価格が異なる",
+   "branch_note": "札幌・仙台・宇都宮・大宮・柏院は価格が異なる（横浜・名古屋・福岡院は公式料金表の共通価格。2026-10-19に院一覧で確認）",
    "url": "https://www.kyoritsu-biyo.com/price/body/wakiga/",
    "verify": "fetch",
    "prices": [
@@ -1009,6 +1012,401 @@
      "note": "片ワキ約24,000円。固定用ボレロ19,800円(税込)"
     }
    ]
+  },
+  {
+   "id": "ace-nagoya",
+   "name": "エースクリニック 名古屋院",
+   "prefectures": [
+    "愛知"
+   ],
+   "url": "https://nagoya.ace-clinic.com/shinryo/other_wakiga/direct-pruning/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "反転剪除法(片脇)・保険3割負担",
+     "price": 21000,
+     "unit": "片側",
+     "tax_included": true,
+     "insurance": true,
+     "approx": true,
+     "note": "初診料・再診料・血液検査料等は別途。片側ずつの手術"
+    },
+    {
+     "t": "miradry",
+     "label": "ミラドライ 両わき2パス(通常料金)",
+     "price": 363000,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false,
+     "note": "症例モニター料金(施術後アンケート・施術部位の撮影あり)の掲載もあり",
+     "src": "https://nagoya.ace-clinic.com/shinryo/other_wakiga/miradry/"
+    }
+   ]
+  },
+  {
+   "id": "nishiyama-nagoya",
+   "name": "にしやま形成外科皮フ科クリニック(名古屋栄)",
+   "prefectures": [
+    "愛知"
+   ],
+   "url": "https://www.nishiyama-clinic-nagoya.com/osmi/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "腋臭症切開剪除法(片側ずつ)・保険3割負担",
+     "price": 23000,
+     "unit": "片側",
+     "tax_included": null,
+     "insurance": true,
+     "approx": true,
+     "note": "診察料・薬代・手術前血液検査代・予約料1,100円などは別途"
+    },
+    {
+     "t": "senjo",
+     "label": "両側同時手術(保険適応外)",
+     "price": 300000,
+     "unit": "両脇",
+     "tax_included": false,
+     "insurance": false
+    }
+   ]
+  },
+  {
+   "id": "maria-nagoya",
+   "name": "名古屋マリアクリニック",
+   "prefectures": [
+    "愛知"
+   ],
+   "url": "https://maria.nagoya/medical/wakiga",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "botox",
+     "label": "ワキボトックス注射",
+     "price": 77000,
+     "unit": "両脇",
+     "tax_included": null,
+     "insurance": false,
+     "note": "同ページに「ワキガ手術は名古屋院では現在対応しておりません」の記載"
+    }
+   ]
+  },
+  {
+   "id": "mayurina-nagoya",
+   "name": "まゆりなclinic名古屋栄",
+   "prefectures": [
+    "愛知"
+   ],
+   "url": "https://mayurina-clinic.com/miradry/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "両脇のミラドライ 1回",
+     "price": 179000,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false,
+     "note": "カウンセリング・診察・局所麻酔・アフターケア薬・術後検診の料金を含むと記載"
+    }
+   ]
+  },
+  {
+   "id": "grand-nagoya",
+   "name": "グランクリニック(名古屋栄)",
+   "prefectures": [
+    "愛知"
+   ],
+   "url": "https://grand-clinic.com/blog/%e3%83%9f%e3%83%a9%e3%83%89%e3%83%a9%e3%82%a4-2.html",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 1回",
+     "price": 194700,
+     "unit": "不明",
+     "tax_included": true,
+     "insurance": false
+    }
+   ]
+  },
+  {
+   "id": "clinique-fukuoka",
+   "name": "クリニーク福岡天神",
+   "prefectures": [
+    "福岡"
+   ],
+   "url": "https://clinique-fukuoka-tenjin.com/guide/wakiga/miradry.html",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ両脇 通常価格(チップ・麻酔代込み)",
+     "price": 236500,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false,
+     "note": "「特別案内」126,500円(税込)の掲載あり(期間の記載なし)"
+    }
+   ]
+  },
+  {
+   "id": "misel-fukuoka",
+   "name": "ミセルクリニック 福岡院",
+   "prefectures": [
+    "福岡"
+   ],
+   "url": "https://fukuoka-fujino.com/price/wakiga",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 両わき 正規料金",
+     "price": 385000,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false,
+     "note": "キャンペーン129,800円(税込)の掲載あり。麻酔22,000円は別途"
+    },
+    {
+     "t": "botox",
+     "label": "アラガンボトックス 1回",
+     "price": 88000,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false
+    },
+    {
+     "t": "botox",
+     "label": "韓国ボツラックス 1回",
+     "price": 59180,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false
+    }
+   ]
+  },
+  {
+   "id": "skin-hakata",
+   "name": "スキンクリニック 博多院",
+   "prefectures": [
+    "福岡"
+   ],
+   "url": "https://www.skin-c.com/operation/miradry.html",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 両わき1回",
+     "price": 363000,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false,
+     "note": "麻酔代・処置代込み。25周年特別価格154,000円(税込)の掲載あり"
+    }
+   ],
+   "branch_note": "ミラドライは博多院のみ"
+  },
+  {
+   "id": "ks-tenjin",
+   "name": "ケーズ皮膚科 美容皮膚科 天神院",
+   "prefectures": [
+    "福岡"
+   ],
+   "url": "https://ks-tenjin.jp/menu/miradry/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 通常価格(一括)",
+     "price": 155000,
+     "unit": "不明",
+     "tax_included": true,
+     "insurance": false,
+     "note": "土曜日は+55,000円"
+    },
+    {
+     "t": "botox",
+     "label": "脇汗止め注射A(ニューロノックス)",
+     "price": 20000,
+     "unit": "不明",
+     "tax_included": true,
+     "insurance": false
+    },
+    {
+     "t": "botox",
+     "label": "脇汗止め注射B(アラガン)",
+     "price": 46600,
+     "unit": "不明",
+     "tax_included": true,
+     "insurance": false
+    }
+   ]
+  },
+  {
+   "id": "dayclinic-tenjin",
+   "name": "デイクリニック天神",
+   "prefectures": [
+    "福岡"
+   ],
+   "url": "https://saiseikai-dayclinic.com/axillary-odors/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "剪除法(皮弁法)・保険3割負担(両ワキ)",
+     "price": 42000,
+     "unit": "両脇",
+     "tax_included": null,
+     "insurance": true,
+     "approx": true,
+     "note": "片ワキ約21,000円。初診料・術前検査代・薬剤代などは別途"
+    },
+    {
+     "t": "senjo",
+     "label": "剪除法(皮弁法)・自費診療(保険適用基準を満たさない場合)",
+     "price": 354200,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false
+    }
+   ]
+  },
+  {
+   "id": "bliss-fukuoka",
+   "name": "福岡ブリスクリニック",
+   "prefectures": [
+    "福岡"
+   ],
+   "url": "https://bliss-clinic.com/wakiga/index.html",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "剪除法手術・保険3割負担",
+     "price": 41220,
+     "unit": "両脇",
+     "tax_included": null,
+     "insurance": true,
+     "approx": true,
+     "note": "3割負担の場合のおよその金額"
+    },
+    {
+     "t": "botox",
+     "label": "わきボトックス注射・保険3割負担",
+     "price": 23000,
+     "unit": "両脇",
+     "tax_included": null,
+     "insurance": true,
+     "approx": true
+    }
+   ]
+  },
+  {
+   "id": "ta-yokohama",
+   "name": "TAクリニック 横浜院・福岡院",
+   "prefectures": [
+    "神奈川",
+    "福岡"
+   ],
+   "url": "https://yokohama.taclinic.jp/menu/surgery/bodyoder/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo",
+     "label": "反転剪除法(両側)",
+     "price": 290000,
+     "unit": "両脇",
+     "tax_included": null,
+     "insurance": false,
+     "note": "片側203,000円"
+    },
+    {
+     "t": "botox",
+     "label": "ボツリヌストキシン注射 ワキ40単位",
+     "price": 15200,
+     "unit": "不明",
+     "tax_included": null,
+     "insurance": false,
+     "note": "初回9,800円の掲載あり"
+    },
+    {
+     "t": "botox",
+     "label": "ボトックス注射 ワキ40単位",
+     "price": 33000,
+     "unit": "不明",
+     "tax_included": null,
+     "insurance": false
+    }
+   ],
+   "branch_note": "反転剪除法の実施院：銀座・横浜・大阪・福岡ほか"
+  },
+  {
+   "id": "tj-shinyokohama",
+   "name": "TJクリニック(新横浜)",
+   "prefectures": [
+    "神奈川"
+   ],
+   "url": "https://tjclinic.jp/hoken/wakiga/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "senjo_ins",
+     "label": "皮弁法・剪除法・保険適用(両ワキ)",
+     "price": 42000,
+     "unit": "両脇",
+     "tax_included": null,
+     "insurance": true,
+     "approx": true,
+     "note": "片ワキ約21,500円"
+    }
+   ]
+  },
+  {
+   "id": "maria-yokohama",
+   "name": "横浜マリアクリニック",
+   "prefectures": [
+    "神奈川"
+   ],
+   "url": "https://cecile-cl.com/medical/miradry/",
+   "verify": "fetch",
+   "checked_at": "2026-10-19",
+   "prices": [
+    {
+     "t": "miradry",
+     "label": "ミラドライ 両ワキ1回 マリア式W照射",
+     "price": 299000,
+     "unit": "両脇",
+     "tax_included": true,
+     "insurance": false,
+     "note": "初診料・定期検診代・麻酔料・お薬代として別途31,000円。動画モニタープラン145,000円(税込)の掲載あり"
+    },
+    {
+     "t": "botox",
+     "label": "ワキボトックス",
+     "price": 77000,
+     "unit": "両脇",
+     "tax_included": null,
+     "insurance": false,
+     "src": "https://cecile-cl.com/medical/wakiga/"
+    }
+   ],
+   "branch_note": "剪除法は新宿院のみ"
   }
  ]
 }
