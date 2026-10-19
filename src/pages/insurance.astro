@@ -1,8 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
+import PriceTable from '../components/PriceTable.astro';
+import { rows, stats, bothSides, d } from '../data/util.js';
+import { yen } from '../data/meta.js';
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+const ins = rows(() => true, ['senjo_ins']);
+const s = stats(ins.map(x => bothSides(x.p)).filter(v => v != null));
 ---
-<Base title="保険適用ガイド">
-<h1>ワキガ・多汗症の保険適用ガイド</h1>
+<Base title="ワキガ手術の保険適用はいくら？自己負担の掲載値と条件" description={`保険適用のワキガ手術（剪除法・3割負担）の自己負担を、${ins.length}院の公式掲載値から一覧に。両脇換算の中央値は${yen(s.med)}（範囲${yen(s.min)}〜${yen(s.max)}）。保険が使える条件・使えない治療も解説。`} crumbs={[['保険適用ガイド','']]}>
+<h1>ワキガ・多汗症の保険適用ガイド：保険の剪除法はいくら？</h1>
+<div class="card"><b>保険適用の剪除法（3割負担）の掲載値</b>：{ins.length}院・両脇換算の中央値 <b>{yen(s.med)}</b>（範囲 {yen(s.min)}〜{yen(s.max)}）<div class="note">片側表記は2倍した単純計算。各院が公式サイトに掲載している目安額で、初診料・検査料・薬代などが別途かかる場合があります。確認日：{d.checked_at}（関西の追加分は各院の確認日）。</div><a href="#ins-list">一覧を見る</a></div>
 <table><tr><th>治療</th><th>保険の扱い</th></tr>
 <tr><td>剪除法（皮弁法）</td><td>医師が腋臭症として治療が必要と判断した場合に保険適用。3割負担で両脇おおむね4〜5万円前後を掲載するクリニックが多い（<a href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}>実際の掲載値</a>）。初診料・血液検査・薬代などが別途かかる場合あり。</td></tr>
 <tr><td>ボツリヌス製剤注射</td><td>重度の原発性腋窩多汗症と診断された場合に保険適用。においの治療目的では自費が一般的。</td></tr>
@@ -12,5 +19,8 @@ import Base from '../layouts/Base.astro';
 <ul><li>保険適用の可否は自分では決められず、医師の診察で判断されます。</li>
 <li>民間の医療保険に加入している場合、保険診療の手術で手術給付金の対象になることがあります（契約内容を保険会社に確認）。</li>
 <li>自費の治療費も、治療目的であれば医療費控除の対象になり得ます（詳細は税務署・税理士へ）。</li></ul>
+<h2 id="ins-list">保険適用の剪除法：クリニック別の掲載値（{ins.length}件）</h2>
+<PriceTable rows={ins} showMethod={false} />
+<p>自費の手術・ミラドライ・ボトックスの料金は<a href={`${B}/price/senjo/`}>ワキガ手術の費用一覧</a>、<a href={`${B}/price/miradry/`}>ミラドライの値段</a>、<a href={`${B}/price/botox/`}>ボトックスの料金</a>で確認できます。</p>
 <p class="note">本ページは一般的な情報です。最新の制度・条件は医療機関でご確認ください。</p>
 </Base>

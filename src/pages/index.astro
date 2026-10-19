@@ -2,10 +2,14 @@
 import Base from '../layouts/Base.astro';
 import d from '../data/clinics.json';
 ---
-<Base title="ワキガ治療の費用を、出典付きで比べる">
+<Base title="ワキガ治療の費用を出典つきで比較｜手術・ミラドライ・ボトックス">
 <h1>ワキガ治療の費用を、出典と確認日付きで比べる</h1>
 <p>東京・関西（大阪・京都・兵庫・滋賀）の{d.clinics.length}院について、公式サイトに掲載された料金を<b>出典URL・確認日・税込/税抜・片側/両側・保険適用の有無</b>とともに整理しています。おすすめ順位は付けていません。</p>
 <div class="grid">
+<a class="card" href={`${import.meta.env.BASE_URL}/price/senjo/`.replace("//","/")}><b>ワキガ手術（剪除法）の費用一覧</b><br>保険適用（3割負担）と自費を分けて掲載</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/price/miradry/`.replace("//","/")}><b>ミラドライの値段一覧</b><br>両脇換算の中央値・範囲つき</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/area/osaka/`.replace("//","/")}><b>大阪のワキガ手術・治療の費用</b><br>大阪に院があるクリニックの掲載値</a>
+<a class="card" href={`${import.meta.env.BASE_URL}/area/tokyo/`.replace("//","/")}><b>東京のワキガ手術・治療の費用</b><br>東京に院があるクリニックの掲載値</a>
 <a class="card" href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}><b>クリニック料金データベース</b><br>都道府県・治療法で絞り込み、料金順に並べ替え</a>
 <a class="card" href={`${import.meta.env.BASE_URL}/simulator/`.replace("//","/")}><b>治療ごとの5年総額シミュレーター</b><br>掲載料金の最小・中央値・最大から5年分の費用目安を計算</a>
 <a class="card" href={`${import.meta.env.BASE_URL}/check/`.replace("//","/")}><b>体臭タイプ傾向チェック</b><br>ブラウザ内だけで完結。データは保存しません</a>

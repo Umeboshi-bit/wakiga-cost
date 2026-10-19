@@ -7,7 +7,7 @@ const qs=[
 ['首の後ろ・頭皮・耳の後ろのにおいが気になる','k'],['40歳以上である','k'],
 ['足のにおいが特に気になる','f'],['においが気になり始めたのは食事・飲酒・睡眠不足が続いた時期と重なる','l']];
 ---
-<Base title="体臭タイプ傾向チェック">
+<Base title="体臭タイプ傾向チェック（診断ではありません）" description="11の質問から、ワキのにおい・汗の量・加齢臭・足のにおいなど、どの情報を読むと参考になりそうかの傾向を表示します。回答は送信・保存されません。">
 <h1>体臭タイプ傾向チェック</h1>
 <div class="card note"><b>このチェックは診断ではありません。</b>回答はお使いのブラウザ内だけで処理され、送信・保存は一切しません。結果はあくまで「どの話題の情報を読むと参考になりそうか」の目安です。においや汗の悩みは、皮膚科・形成外科などの医師にご相談ください。</div>
 <form id="f">{qs.map(([q,k],i)=><div class="card"><label><input type="checkbox" name="q" value={k}/> {q}</label></div>)}
@@ -15,7 +15,7 @@ const qs=[
 <div id="r" class="card" style="display:none"></div>
 <script>
 const BASE=import.meta.env.BASE_URL.replace(/\/$/,'');
-const L={a:['ワキのにおい（腋臭）に関する情報','/guide/'],e:['汗の量（多汗）に関する情報','/insurance/'],h:['手汗向けの市販ケア用品（広告・PRを含むページ）','/products/#frenara'],k:['加齢にともなうにおいの情報（生活習慣・ケア用品）','/products/'],f:['足のにおいの情報（ケア用品）','/products/'],l:['生活習慣とにおいの関係','/guide/']};
+const L={a:['ワキのにおい（腋臭）の治療法と費用の目安','/price/senjo/'],e:['汗の量（多汗）に関する情報','/insurance/'],h:['手汗向けの市販ケア用品（広告・PRを含むページ）','/products/#frenara'],k:['加齢にともなうにおいの情報（生活習慣・ケア用品）','/products/'],f:['足のにおいの情報（ケア用品）','/products/'],l:['生活習慣とにおいの関係','/guide/']};
 document.getElementById('f').onsubmit=e=>{e.preventDefault();const c={};document.querySelectorAll('input[name=q]:checked').forEach(i=>c[i.value]=(c[i.value]||0)+1);
 if(c.e&&document.querySelectorAll('input[name=q][value=e]')[1].checked)c.h=1;const ks=Object.keys(c).sort((a,b)=>c[b]-c[a]);const r=document.getElementById('r');r.style.display='block';
 r.innerHTML='<h2>参考になりそうな情報</h2>'+(ks.length?'<ul>'+ks.map(k=>`<li><a href="${BASE}${L[k][1]}">${L[k][0]}</a>（該当${c[k]}項目）</li>`).join('')+'</ul>':'<p>該当項目はありませんでした。</p>')+

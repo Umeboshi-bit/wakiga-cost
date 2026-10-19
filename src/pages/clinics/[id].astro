@@ -7,7 +7,7 @@ const { c } = Astro.props;
 const B = import.meta.env.BASE_URL.replace(/\/$/, '');
 const checked = c.checked_at || d.checked_at;
 ---
-<Base title={`${c.name}のワキガ・多汗症治療料金`}>
+<Base title={`${c.name}のワキガ・多汗症治療の料金（出典つき）`} description={`${c.name}のワキガ・多汗症治療（${[...new Set(c.prices.map(p=>T[p.t]))].join('・')}）の料金を公式サイトの掲載値から出典URL・確認日（${checked}）つきでまとめました。`} crumbs={[['料金データベース',`${B}/clinics/`],[c.name,'']]}>
 <h1>{c.name}</h1>
 <p>地域：{c.prefectures.join('・')}{c.branch_note && `（${c.branch_note}）`}</p>
 <table><tr><th>術式・治療法</th><th>メニュー</th><th>料金</th><th>単位</th><th>税</th><th>保険</th><th>期間限定価格</th></tr>
@@ -15,5 +15,7 @@ const checked = c.checked_at || d.checked_at;
 <td>{p.campaign ? <span>{p.campaign.label}：{yen(p.campaign.price)}（{tax(p.campaign.tax_included)}）<div class="note">期間：{p.campaign.period}／確認日 {p.campaign.checked_at}／<a href={p.campaign.url} rel="nofollow noopener" target="_blank">出典</a></div></span> : '—'}</td></tr>)}</table>
 <p class="note">出典：<a href={c.url} rel="nofollow noopener" target="_blank">{c.url}</a>／確認日：{checked}。料金は変更されることがあります。期間限定価格は予告なく終了することがあります。最新情報・リスク・副作用は必ず公式サイトと診察でご確認ください。</p>
 {c.prices.some(p=>p.t.startsWith('senjo')) && <p><a href={`${B}/senjo-recovery/`}>剪除法の術後スケジュール（一般的な目安）</a></p>}
+<p>同じ治療法の他院の料金：{[...new Set(c.prices.map(p=>p.t.startsWith('senjo')?'senjo':p.t))].map(m=><a class="btn" style="margin:.2rem" href={`${B}/price/${m}/`}>{({senjo:'ワキガ手術の費用一覧',miradry:'ミラドライの値段一覧',botox:'ボトックスの料金一覧'})[m]}</a>)}</p>
+<p>地域の料金一覧：{c.prefectures.map(p=>({'大阪':'osaka','東京':'tokyo','京都':'kyoto','兵庫':'hyogo'})[p]).filter(Boolean).map((a,i)=><a style="margin-right:.8rem" href={`${B}/area/${a}/`}>{({osaka:'大阪',tokyo:'東京',kyoto:'京都',hyogo:'兵庫・神戸'})[a]}のワキガ治療費用</a>)}</p>
 <p><a href={`${B}/clinics/`}>← データベースに戻る</a></p>
 </Base>

@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import PriceTable from '../../components/PriceTable.astro';
+import { METHODS, AREAS, rows, stats, bothSides, d } from '../../data/util.js';
+import { yen } from '../../data/meta.js';
+export function getStaticPaths(){ return Object.keys(METHODS).map(m=>({params:{m}})); }
+const { m } = Astro.params;
+const M = METHODS[m];
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+const groups = m === 'senjo'
+  ? [['保険適用（3割負担）の掲載値', ['senjo_ins']], ['自費（自由診療）の掲載値', ['senjo']]]
+  : [[`${M.name}の掲載値`, M.t]];
+const G = groups.map(([label, t]) => { const r = rows(() => true, t); const s = stats(r.map(x => bothSides(x.p)).filter(v => v != null)); return { label, r, s }; });
+const total = G.reduce((a, g) => a + g.r.length, 0);
+const clinicsN = new Set(G.flatMap(g => g.r.map(x => x.c.id))).size;
+const desc = `${M.name}の料金を${clinicsN}院・${total}件、公式サイトの掲載値から出典URLと確認日つきで一覧にしました。両脇換算の中央値・範囲、税込/税抜${m==='miradry'?'、照射方法の違い':'、保険適用の有無'}も確認できます。`;
+---
+<Base title={`${M.h1}【${clinicsN}院・出典つき】`} description={desc} crumbs={[['料金データベース',`${B}/clinics/`],[M.name,'']]}>
+<h1>{M.h1}</h1>
+<p>{desc}</p>
+<div class="card">
+{G.map(g => g.s && <p><b>{g.label}</b>（両脇換算・{g.s.n}件）：中央値 <b>{yen(g.s.med)}</b>／範囲 {yen(g.s.min)}〜{yen(g.s.max)}</p>)}
+<p class="note">「両脇換算」は、両脇表記の料金はそのまま、片側表記の料金は2倍にした単純計算です。単位の記載がないものは換算から除いています。税込・税抜が混在しています。初診料・検査料・麻酔代・薬代などが別途かかる場合があります。料金確認日：{d.checked_at}（関西の追加分は各院の確認日）。</p>
+</div>
+{m === 'senjo' && <p>剪除法（皮弁法）は、医師が腋臭症として治療が必要と判断した場合に保険が適用されることがあります。保険の可否は診察で決まります。詳しくは<a href={`${B}/insurance/`}>保険適用ガイド</a>と<a href={`${B}/senjo-recovery/`}>術後スケジュール</a>をご覧ください。</p>}
+{m === 'miradry' && <p>ミラドライは自費診療です。照射回数・照射方法（シングル／2パスなど）・麻酔代の扱いが院ごとに異なるため、メニュー名と注記もあわせて確認してください。しくみやリスクは<a href={`${B}/guide/`}>治療法ガイド</a>にまとめています。</p>}
+{m === 'botox' && <p>ワキのボツリヌス製剤注射は効果が一時的で、続ける場合は繰り返しの施術が必要です。重度の原発性腋窩多汗症と診断された場合は保険適用となることがあります（<a href={`${B}/insurance/`}>保険適用ガイド</a>）。数年単位の費用は<a href={`${B}/simulator/`}>5年総額シミュレーター</a>で目安を計算できます。</p>}
+{G.map(g => <><h2>{g.label}（{g.r.length}件）</h2><PriceTable rows={g.r} showMethod={false} /></>)}
+<h2>地域別に見る</h2>
+<p>{Object.entries(AREAS).map(([k,a]) => <a class="btn" style="margin:.2rem" href={`${B}/area/${k}/`}>{a.name}</a>)}</p>
+<h2>ほかの治療法の料金</h2>
+<ul>{Object.entries(METHODS).filter(([k])=>k!==m).map(([k,x]) => <li><a href={`${B}/price/${k}/`}>{x.h1}</a></li>)}</ul>
+<p class="note">治療の前に、まず市販のデオドラント用品で様子を見たい場合は<a href={`${B}/products/`}>市販品の選び方（広告・PRを含みます）</a>も参考にしてください。症状が強い場合は医師にご相談ください。</p>
+</Base>

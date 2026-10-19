@@ -1,8 +1,18 @@
 ---
-const { title } = Astro.props;
+const { title, description = 'ワキガ・多汗症の治療費（剪除法・ミラドライ・ボトックス）を、各クリニック公式サイトの掲載料金から出典URLと確認日つきで比較できるデータベース。保険適用の目安、5年総額シミュレーター付き。', crumbs = [] } = Astro.props;
+const BU = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const home = new URL(BU + '/', Astro.site).href;
+const fullTitle = `${title} | ワキガ費用ナビ`;
+const ld = [{ '@context':'https://schema.org','@type':'WebSite', name:'ワキガ費用ナビ', url: home, inLanguage:'ja', publisher:{ '@type':'Organization', name:'ワキガ費用ナビ編集部', email:'shami.aplas@gmail.com', url: home } }];
+if (crumbs.length) ld.push({ '@context':'https://schema.org','@type':'BreadcrumbList', itemListElement: [['ホーム', home], ...crumbs].map(([n,u],i)=>({ '@type':'ListItem', position:i+1, name:n, item: u ? new URL(u, Astro.site).href : canonical })) });
 ---
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title} | ワキガ費用ナビ</title>
+<title>{fullTitle}</title>
+<meta name="description" content={description}><link rel="canonical" href={canonical}>
+<meta property="og:type" content="website"><meta property="og:site_name" content="ワキガ費用ナビ"><meta property="og:title" content={fullTitle}><meta property="og:description" content={description}><meta property="og:url" content={canonical}><meta property="og:locale" content="ja_JP"><meta name="twitter:card" content="summary">
+<link rel="sitemap" type="application/xml" href={`${BU}/sitemap.xml`}>
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />
 <style is:global>
 body{font-family:system-ui,"Hiragino Sans","Noto Sans JP",sans-serif;margin:0;color:#222;line-height:1.7;background:#fafafa}
 header{background:#2b5f75;color:#fff;padding:.6rem 1rem}header a{color:#fff;margin-right:1rem;text-decoration:none;font-size:.9rem}
@@ -21,6 +31,7 @@ th{background:#eef3f5}.card{background:#fff;border:1px solid #ddd;border-radius:
 <a href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}>料金データベース</a><a href={`${import.meta.env.BASE_URL}/simulator/`.replace("//","/")}>5年総額</a><a href={`${import.meta.env.BASE_URL}/check/`.replace("//","/")}>傾向チェック</a><a href={`${import.meta.env.BASE_URL}/guide/`.replace("//","/")}>治療法ガイド</a><a href={`${import.meta.env.BASE_URL}/insurance/`.replace("//","/")}>保険適用</a><a href={`${import.meta.env.BASE_URL}/senjo-recovery/`.replace("//","/")}>術後スケジュール</a><a href={`${import.meta.env.BASE_URL}/products/`.replace("//","/")}>市販品</a><a href={`${import.meta.env.BASE_URL}/policy/`.replace("//","/")}>運営方針</a></header>
 <main><slot /></main>
 <footer>
+<div class="card"><b>治療法・地域別の料金一覧</b><br><a href={`${BU}/price/senjo/`}>ワキガ手術（剪除法）の費用</a>／<a href={`${BU}/price/miradry/`}>ミラドライの値段</a>／<a href={`${BU}/price/botox/`}>ワキのボトックス料金</a>／<a href={`${BU}/insurance/`}>保険適用はいくら？</a><br><a href={`${BU}/area/osaka/`}>大阪</a>／<a href={`${BU}/area/tokyo/`}>東京</a>／<a href={`${BU}/area/kyoto/`}>京都</a>／<a href={`${BU}/area/hyogo/`}>兵庫・神戸</a>／<a href={`${BU}/area/kansai/`}>関西</a>／<a href={`${BU}/products/`}>市販品の選び方（PR）</a></div>
 <div class="card"><b>料金更新のお知らせメール(準備中)</b><br><a href={`${import.meta.env.BASE_URL}/newsletter/`.replace("//","/")}>登録について</a></div>
 本サイトは情報提供を目的としており、診断・治療の代わりにはなりません。症状については医師にご相談ください。料金は各クリニック公式サイトの掲載値を転記したもので、最新の料金・条件は必ず各公式サイトでご確認ください。<br>
 <a href={`${import.meta.env.BASE_URL}/policy/`.replace("//","/")}>編集方針・広告表記・運営者情報</a><br>運営：ワキガ費用ナビ編集部（お問い合わせ：<a href="mailto:shami.aplas@gmail.com">shami.aplas@gmail.com</a>）</footer></body></html>

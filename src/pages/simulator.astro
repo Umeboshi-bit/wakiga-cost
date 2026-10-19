@@ -9,7 +9,7 @@ const S = {};
 for (const p of prefs){ S[p]={}; for (const t of types){ const vals=[]; for(const c of d.clinics){ if(p==='関西' ? !c.prefectures.some(x=>['大阪','京都','兵庫','滋賀'].includes(x)) : (p!=='all' && !c.prefectures.includes(p))) continue; for(const x of c.prices){ if(x.t!==t) continue; vals.push(x.unit==='片側' ? x.price*2 : x.price); } } S[p][t]=stats(vals); } }
 const alum = d.clinics.some(c=>c.prices.some(x=>x.t==='alcl'||x.t==='aluminum'));
 ---
-<Base title="治療ごとの5年総額シミュレーター">
+<Base title="ワキガ治療の5年総額シミュレーター" description="ボトックスを続けた場合と手術・ミラドライの費用を、掲載料金の最小・中央値・最大から5年分で比較計算します。">
 <h1>治療ごとの5年総額シミュレーター</h1>
 <p>選んだ治療を5年間続けた場合の費用の目安を、<a href={`${B}/clinics/`}>料金データベース</a>に掲載している各院の公式掲載料金(確認日：{d.checked_at})の<b>最小・中央値・最大</b>から計算します。計算はブラウザ内だけで行い、入力内容は保存・送信しません。順位付けや特定の治療のおすすめはしていません。</p>
 <div class="card">
