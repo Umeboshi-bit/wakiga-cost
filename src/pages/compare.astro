@@ -31,7 +31,7 @@ const FAQ = [
 <tr><td><b>ダウンタイムの目安</b></td>{cols.map(c => <td>{c.down}</td>)}</tr>
 <tr><td><b>主なリスク・副作用</b></td>{cols.map(c => <td>{c.risk}</td>)}</tr>
 </table></div>
-<p class="note">料金は各院の公式サイト掲載値（確認日：{d.checked_at}、追加分は各院の確認日）から算出した単純な目安です。片側表記は2倍、単位不明は除外。税込/税抜が混在し、初診料・麻酔代・薬代などが別途かかる場合があります。追加照射・再手術が必要になった場合の費用は含みません。ダウンタイム・リスクは一般的な情報で、剪除法の回復の詳細と出典は<a href={`${B}/senjo-recovery/`}>術後スケジュール</a>、治療ごとのしくみは<a href={`${B}/guide/`}>治療法ガイド</a>をご覧ください。多汗症の治療法については日本皮膚科学会の<a href="https://qa.dermatol.or.jp/qa32/q07.html" rel="noopener" target="_blank">皮膚科Q&A</a>も参考になります。</p>
+<p class="note">料金は各院の公式サイト掲載値（確認日：{d.checked_at}、追加分は各院の確認日）から算出した単純な目安です。片側表記は2倍、単位不明は除外。税込/税抜が混在し、初診料・麻酔代・薬代などが別途かかる場合があります。追加照射・再手術が必要になった場合の費用は含みません（再治療の考え方と掲載値は<a href={`${B}/recurrence/`}>再発・再手術の費用</a>）。ダウンタイム・リスクは一般的な情報で、剪除法の回復の詳細と出典は<a href={`${B}/senjo-recovery/`}>術後スケジュール</a>、治療ごとのしくみは<a href={`${B}/guide/`}>治療法ガイド</a>をご覧ください。多汗症の治療法については日本皮膚科学会の<a href="https://qa.dermatol.or.jp/qa32/q07.html" rel="noopener" target="_blank">皮膚科Q&A</a>も参考になります。</p>
 <h2>グラフで見る掲載料金（中央値と範囲）</h2>
 <p><img src={`${B}/og/price-chart.png`} width="1200" height="675" loading="lazy" alt="剪除法（保険・3割負担）、ボトックス、ミラドライ、自費の手術の掲載料金（両脇換算）の中央値と範囲のグラフ" style="max-width:100%;height:auto;border:1px solid #ddd;border-radius:8px"></p>
 <p class="note">上の表と同じデータ（各院公式サイトの掲載値）から作成したグラフです。治療法の優劣や効果を示すものではありません。SNS等で紹介いただく場合は、出典として本ページへのリンクをお願いします（<a href={`${B}/og/price-chart.png`}>横長画像</a>／<a href={`${B}/og/price-medians-square.png`}>正方形画像</a>）。</p>

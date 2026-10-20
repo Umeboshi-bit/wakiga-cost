@@ -12,6 +12,6 @@ const rows=[
 <table><tr><th>治療法</th><th>しくみ</th><th>保険</th><th>ダウンタイム</th><th>主なリスク・副作用</th></tr>
 {rows.map(r=><tr>{r.map(x=><td>{x}</td>)}</tr>)}</table>
 <p class="note">効果・持続期間・副作用には個人差があります。上記は一般的な情報で、各クリニックが公式サイトで示すリスク説明もあわせてご確認ください。生活習慣（食事・睡眠・衣類の素材・こまめな汗の拭き取りなど）もにおいの感じ方に関わることがあります。</p>
-<p>保険が使える条件は<a href={`${import.meta.env.BASE_URL}/insurance-conditions/`.replace("//","/")}>保険適用の条件</a>、中高生・大学生の方は<a href={`${import.meta.env.BASE_URL}/student/`.replace("//","/")}>学生・未成年のワキガ治療</a>で解説しています。</p>
+<p>保険が使える条件は<a href={`${import.meta.env.BASE_URL}/insurance-conditions/`.replace("//","/")}>保険適用の条件</a>、中高生・大学生の方は<a href={`${import.meta.env.BASE_URL}/student/`.replace("//","/")}>学生・未成年のワキガ治療</a>で解説しています。ワキガと多汗症の違いは<a href={`${import.meta.env.BASE_URL}/tahansho/`.replace("//","/")}>ワキガと多汗症の違いと治療費</a>、治療後ににおいが再び気になる場合は<a href={`${import.meta.env.BASE_URL}/recurrence/`.replace("//","/")}>再発・再手術の費用</a>をご覧ください。</p>
 <p><a class="btn" href={`${import.meta.env.BASE_URL}/clinics/`.replace("//","/")}>治療法ごとの料金を見る</a></p>
 </Base>
